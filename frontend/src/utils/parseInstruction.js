@@ -93,7 +93,12 @@ export const parseInstruction = (index, chatType) => {
             </>
           )}
 
-          {chatType === "GPT" && gpt}
+          {chatType === "GPT" && (
+            <>
+              {gpt}
+              {ready}
+            </>
+          )}
         </>
       );
   }
