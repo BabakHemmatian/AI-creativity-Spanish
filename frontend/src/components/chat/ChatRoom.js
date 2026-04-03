@@ -135,7 +135,7 @@ export default function ChatRoom({
 
     sock.on("refresh", () => {
       alert(
-        "The co-player’s connection to the server was severed. Please refresh this page to start this session again. We apologize for the inconvenience.",
+        "Se ha interrumpido la conexión del otro jugador con el servidor. Por favor, actualice esta página para reiniciar la sesión. Lamentamos las molestias.",
       )
     })
 
@@ -212,7 +212,7 @@ export default function ChatRoom({
     } else if (ready !== 3) {
       alert("please first type ready!")
     } else if (currentChat.isEnd) {
-      alert("current chat room has ended, but you can match a new one")
+      alert("La sala de chat actual se ha cerrado, pero puedes buscar una nueva.")
     } else {
       const receiverId = currentChat.members.find(
         (member) => member !== currentUser.uid,
@@ -269,7 +269,7 @@ export default function ChatRoom({
             <li className="dark:text-white" style={{ fontWeight: "bold" }}>
               <div>
                 {ready === 3 &&
-                  `The object you will be coming up with creative uses for is: ${currentChat.instruction}`}
+                  `El objeto para el que idearás usos creativos es: ${currentChat.instruction}`}
               </div>
             </li>
             {messages
@@ -280,7 +280,7 @@ export default function ChatRoom({
                 </div>
               ))}
             <li className="dark:text-white" style={{ fontWeight: "bold" }}>
-              {`This chat room will end in ${countdown} seconds`}
+              {`Esta sala de chat terminará en ${countdown} segundos.`}
             </li>
             <li className="dark:text-white" style={{ fontWeight: "bold" }}>
               {countdown === 0 && parseEndInstruction(currentChat.index)}
