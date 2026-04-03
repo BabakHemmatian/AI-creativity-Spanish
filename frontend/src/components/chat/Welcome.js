@@ -7,7 +7,7 @@ export default function Welcome() {
         <WelcomeSVG />
         <div className="text-center">
           <h2 className="text-xl text-gray-500 dark:text-gray-400">
-            Click the 'Match' or 'Start' button to the top left to begin. 
+            Haz clic en el botón 'Partido' o 'Iniciar' en la parte superior izquierda para comenzar. 
           </h2>
         </div>
       </div>
