@@ -35,7 +35,7 @@ You are going to play a game called the Alternative Uses Test (AUT; Guilford, 19
 `.trim()
 
 const seedUser = (item) =>
-  `Start the chat by sharing a creative use for ${item}.`
+  `Empieza el chat compartiendo un uso creativo para ${item}.`
 
 const toInputBlocks = (raw) => {
   const blocks = []
@@ -55,7 +55,7 @@ const toInputBlocks = (raw) => {
 
   const first = blocks[0]
   if (!first || first.role !== "user") {
-    const item = raw?.[0]?.text || "the object"
+    const item = raw?.[0]?.text || "el objeto"
     blocks.unshift({
       role: "user",
       content: [{ type: "input_text", text: seedUser(item) }],
