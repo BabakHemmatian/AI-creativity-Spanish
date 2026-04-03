@@ -1,0 +1,10 @@
+## Dependencies
+node_modules
+
+## Lock file(s)
+package-lock.json
+
+## Env file
+.env
+serviceAccountKey.json
+old_serviceAccountKey.json
