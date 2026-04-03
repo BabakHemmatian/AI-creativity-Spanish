@@ -45,7 +45,7 @@ export default function handleReady(socket, { chatRoom, userId }) {
             print_log(`chatLoop: AI reply failed for ${userId}`, -1)
             print_log(err)
             socket.emit("aiError", {
-              message: "AI response failed. Retrying shortly.",
+              message: "La respuesta de la IA falló. Reintentando en breve.",
             })
           }
           setTimeout(chatLoop, jitterMs(waitTime, waitTimeDiff, multiplier))
