@@ -30,7 +30,7 @@ export default function ChatForm({ handleFormSubmit, isProcessing }) {
         <div className="flex items-center justify-between w-full p-3 bg-white border-b border-gray-200 dark:bg-gray-900 dark:border-gray-700">
           <input
             type="text"
-            placeholder="Write a message"
+            placeholder="Escribe un mensaje"
             className="block w-full py-2 pl-4 mx-3 outline-none bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             name="message"
             required
