@@ -10,39 +10,38 @@ const wrap = (children) => (
 export const parseInstruction = (index, chatType) => {
   const base = (
     <p>
-      You and a partner will use this chat to come up with as many{" "}
-      <strong>original and practically helpful alternate uses</strong> for an
-      everyday object as you can in <strong>4 minutes</strong>.
+      Tú y un compañero usarán este chat para generar tantas{" "}
+      <strong>ideas originales y útiles de usos alternativos</strong> para un
+      objeto cotidiano como puedan en <strong>4 minutos</strong>.
     </p>
   );
 
   const ready = (
     <p>
-      When ready to start, send <strong>'ready'</strong> in the chat to reveal
-      the target object and start the timer.
+      Cuando estés listo para comenzar, envía <strong>'listo'</strong> en el chat para revelar
+      el objeto objetivo e iniciar el temporizador.
     </p>
   );
 
   const hum = (
     <p>
-      Your partner for this round is an{" "}
-      <strong>interactive human</strong>. Interact with them however you like.
+      Tu compañero en esta ronda es un{" "}
+      <strong>humano interactivo</strong>. Interactúa con él como prefieras.
     </p>
   );
 
   const con = (
     <p>
-      This round is <strong>non-interactive</strong>. You will see your
-      partner agent's chat messages, but they cannot see yours and will perform the
-      task independently.
+      Esta ronda es <strong>no interactiva</strong>. Verás los mensajes del agente compañero,
+      pero no podrá ver los tuyos y realizará la tarea de forma independiente.
     </p>
   );
 
   const gpt = (
     <p>
-      Your partner for this round is an{" "}
-      <strong>interactive AI</strong>. Wait for its first response, then
-      interact with it however you like. 
+      Tu compañero en esta ronda es una{" "}
+      <strong>IA interactiva</strong>. Espera su primera respuesta y luego
+      interactúa con ella como prefieras. 
     </p>
   );
 
@@ -104,20 +103,20 @@ export const parseEndInstruction = (index) => {
   const roundEnd = (
     <>
       <p>
-        You have completed the <strong>brainstorming round</strong>. Go back to
-        the Qualtrics survey to curate the best ideas.
+        Has completado la <strong>ronda de lluvia de ideas</strong>. Regresa a
+        la encuesta de Qualtrics para seleccionar las mejores ideas.
       </p>
       <p>
-        When instructed, click on the <strong>'Start'</strong> button to the top
-        left to begin the next round.
+        Cuando se te indique, haz clic en el botón <strong>'Comenzar'</strong> en la parte superior
+        izquierda para comenzar la siguiente ronda.
       </p>
     </>
   );
 
   const final = (
     <p>
-      The <strong>co-creation part</strong> of our activity has ended. Go back
-      to the Qualtrics survey to curate the best ideas.
+      La <strong>parte de co-creación</strong> de nuestra actividad ha terminado. Regresa
+      a la encuesta de Qualtrics para seleccionar las mejores ideas.
     </p>
   );
 
