@@ -1,9 +1,4 @@
 import { useState, useEffect, useRef } from "react"
-import {
-  getMessagesOfChatRoom,
-  sendMessage,
-  endChatRoom,
-} from "../../services/ChatService"
 
 import Message from "./Message"
 import Contact from "./Contact"
@@ -13,8 +8,8 @@ import {
   parseEndInstruction,
 } from "../../utils/parseInstruction"
 
-const START_KEYWORD = "listo";
-const START_KEYWORDS = new Set(["listo", "ready"]); // backward compatibility
+const START_KEYWORD = "listo"
+const START_KEYWORDS = new Set(["listo", "ready"]) // backward compatibility
 
 export default function ChatRoom({
   currentChat,
@@ -31,8 +26,8 @@ export default function ChatRoom({
   const [change, setChange] = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
   const [scratchpad, setScratchpad] = useState("")
-
   const [countdown, setCountdown] = useState(Math.ceil(DURATION_MS / 1000))
+
   const intervalRef = useRef(null)
   const currentId = useRef(currentChat._id)
   const currentChatRef = useRef(currentChat)
@@ -50,6 +45,7 @@ export default function ChatRoom({
     setCountdown(Math.ceil(DURATION_MS / 1000))
     clearInterval(intervalRef.current)
     setIsProcessing(false)
+
     if (prevAI) setChange(true)
 
     // Only auto-start for round 0
@@ -63,15 +59,6 @@ export default function ChatRoom({
       console.log("[AutoStart] Emitting startRound for first round")
       socket.current.emit("startRound", { userId: currentUser.uid })
     }
-  }, [currentChat._id])
-
-  useEffect(() => {
-    currentId.current = currentChat._id
-    setReady(0)
-    setMessages([])
-    setCountdown(Math.ceil(DURATION_MS / 1000))
-    clearInterval(intervalRef.current)
-    if (prevAI) setChange(true)
   }, [currentChat._id])
 
   useEffect(() => {
@@ -97,6 +84,7 @@ export default function ChatRoom({
         }
       }
     })
+
     sock.on("userReady", (data) => {
       console.log("userReady: received from", data.senderId)
 
@@ -115,6 +103,7 @@ export default function ChatRoom({
 
       intervalRef.current = setInterval(() => {
         const remaining = endTime - Date.now()
+
         if (remaining <= 0) {
           clearInterval(intervalRef.current)
 
@@ -128,6 +117,7 @@ export default function ChatRoom({
 
           handleEndChatRoom()
           currentChatRef.current.isEnd = true
+
           if (chatType !== "HUM") setPrevAI(true)
           setCountdown(0)
         } else {
@@ -138,7 +128,7 @@ export default function ChatRoom({
 
     sock.on("refresh", () => {
       alert(
-        "Se ha interrumpido la conexión del otro jugador con el servidor. Por favor, actualice esta página para reiniciar la sesión. Lamentamos las molestias.",
+        "Se ha interrumpido la conexión del otro jugador con el servidor. Por favor, actualiza esta página para reiniciar la sesión. Lamentamos las molestias.",
       )
     })
 
@@ -152,15 +142,19 @@ export default function ChatRoom({
   }, [socket, currentUser.uid, handleEndChatRoom])
 
   useEffect(() => {
-    incomingMessage && setMessages((prev) => [...prev, incomingMessage])
+    if (incomingMessage) {
+      setMessages((prev) => [...prev, incomingMessage])
+    }
   }, [incomingMessage])
 
   useEffect(() => {
     if (currentChat.chatType === "GPT" && messages.length > 0) {
       const lastMsg = messages[messages.length - 1]
+      const normalizedLastMessage = lastMsg.message?.trim().toLowerCase()
+
       if (
         lastMsg.senderId === "GPT" &&
-        lastMsg.message.trim().toLowerCase() === START_KEYWORD
+        START_KEYWORDS.has(normalizedLastMessage)
       ) {
         setIsProcessing(false)
       }
@@ -170,19 +164,21 @@ export default function ChatRoom({
   const handleFormSubmit = async (message) => {
     console.log(`HandleFormSubmit: ${message}`)
 
+    const normalizedMessage = message.trim().toLowerCase()
+
     if (currentChat.chatType === "GPT" && isProcessing) return
-    if (currentChat.chatType === "GPT") setIsProcessing(true)
 
     if (START_KEYWORDS.has(normalizedMessage) && ready !== 3) {
       setReady((prev) => prev | 2)
-      setMessages([
-        ...messages,
+      setMessages((prev) => [
+        ...prev,
         {
           roomId: currentId.current,
           sender: currentUser.uid,
           message: START_KEYWORD,
         },
       ])
+
       socket.current.emit("ready", {
         chatRoom: currentChat,
         userId: currentUser.uid,
@@ -194,6 +190,7 @@ export default function ChatRoom({
 
         intervalRef.current = setInterval(() => {
           const remaining = endTime - Date.now()
+
           if (remaining <= 0) {
             clearInterval(intervalRef.current)
 
@@ -212,31 +209,43 @@ export default function ChatRoom({
           }
         }, 500)
       }
-    } else if (ready !== 3) {
-      alert("¡Primero escribe 'listo'!")
-    } else if (currentChat.isEnd) {
-      alert("La sala de chat actual se ha cerrado, pero puedes buscar una nueva.")
-    } else {
-      const receiverId = currentChat.members.find(
-        (member) => member !== currentUser.uid,
-      )
 
-      socket.current.emit("sendMessage", {
-        senderId: currentUser.uid,
-        receiverId,
-        message,
-        chatRoom: currentChat,
-      })
-
-      setMessages([
-        ...messages,
-        {
-          roomId: currentId.current,
-          sender: currentUser.uid,
-          message,
-        },
-      ])
+      return
     }
+
+    if (ready !== 3) {
+      alert("¡Primero escribe 'listo'!")
+      return
+    }
+
+    if (currentChat.isEnd) {
+      alert("La sala de chat actual se ha cerrado, pero puedes buscar una nueva.")
+      return
+    }
+
+    if (currentChat.chatType === "GPT") {
+      setIsProcessing(true)
+    }
+
+    const receiverId = currentChat.members.find(
+      (member) => member !== currentUser.uid,
+    )
+
+    socket.current.emit("sendMessage", {
+      senderId: currentUser.uid,
+      receiverId,
+      message,
+      chatRoom: currentChat,
+    })
+
+    setMessages((prev) => [
+      ...prev,
+      {
+        roomId: currentId.current,
+        sender: currentUser.uid,
+        message,
+      },
+    ])
   }
 
   return (
@@ -244,18 +253,15 @@ export default function ChatRoom({
       <div className="w-full">
         <div className="p-3 bg-white border-b border-gray-200 dark:bg-gray-900 dark:border-gray-700">
           {currentChat.chatType === "CON" ? (
-            // CON: always text-only
             <div className="text-gray-800 dark:text-white font-semibold">
               Agente no interactivo
             </div>
           ) : currentChat.chatType === "HUM" &&
             currentChat.members.length === 1 ? (
-            // HUM but not yet paired
             <div className="text-gray-800 dark:text-white font-semibold">
               Compañero humano interactivo
             </div>
           ) : (
-            // HUM OR GPT: show avatar + label via Contact
             <Contact chatRoom={currentChat} currentUser={currentUser} />
           )}
         </div>
@@ -269,12 +275,14 @@ export default function ChatRoom({
                 change,
               )}
             </li>
+
             <li className="dark:text-white" style={{ fontWeight: "bold" }}>
               <div>
                 {ready === 3 &&
                   `El objeto para el que idearás usos creativos es: ${currentChat.instruction}`}
               </div>
             </li>
+
             {messages
               .filter((mess) => mess.roomId === currentId.current)
               .map((message, index) => (
@@ -282,9 +290,11 @@ export default function ChatRoom({
                   <Message message={message} self={currentUser.uid} />
                 </div>
               ))}
+
             <li className="dark:text-white" style={{ fontWeight: "bold" }}>
               {`Esta sala de chat terminará en ${countdown} segundos.`}
             </li>
+
             <li className="dark:text-white" style={{ fontWeight: "bold" }}>
               {countdown === 0 && parseEndInstruction(currentChat.index)}
             </li>
