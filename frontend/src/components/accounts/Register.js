@@ -26,7 +26,7 @@ export default function Register() {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      return setError("Passwords do not match");
+      return setError("Las contraseñas no coinciden.");
     }
 
     try {
@@ -45,13 +45,13 @@ export default function Register() {
       });
   
       if (!response.ok) {
-        throw new Error('Failed to register user in database');
+        throw new Error('No se pudo registrar al usuario en la base de datos.');
       }
 
       navigate("/profile");
     } catch (e) {
       console.log(e)
-      setError("Failed to register");
+      setError("No se pudo registrar");
     }
 
     setLoading(false);
@@ -110,7 +110,7 @@ export default function Register() {
               disabled={loading}
               className=" w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-800 hover:bg-sky-900"
             >
-              Register
+              Registro
             </button>
           </div>
           <div className="flex items-center justify-between">
@@ -119,7 +119,7 @@ export default function Register() {
                 to="/login"
                 className="text-blue-600 hover:underline dark:text-blue-500"
               >
-                Already have an account? Login
+                ¿Ya tienes una cuenta? Inicia sesión.
               </Link>
             </div>
           </div>
