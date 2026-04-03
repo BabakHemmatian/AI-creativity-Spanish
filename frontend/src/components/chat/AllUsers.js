@@ -159,7 +159,7 @@ export default function AllUsers({
               onClick={handleMatchNewUser}
               disabled={matching}
             >
-              {matching ? "Matching..." : "Match"}
+              {matching ? "Emparejando..." : "Emparejar"}
             </button>
           )}
         </li>
@@ -178,13 +178,13 @@ export default function AllUsers({
                   "HUM" ? (
                     <>
                       <span className="spinner"></span>
-                      Waiting for partner to join...
+                      Esperando a que se una tu compañero...
                     </>
                   ) : (
                     <span className="spinner"></span>
                   )
                 ) : (
-                  "Start"
+                  "Comenzar"
                 )}
               </button>
             )}
