@@ -1,5 +1,5 @@
 export const constResponses = {
-    'un libro o libros (usados para leer)': {
+    BOOK: {
         'high':[
             "construir una casa para niños",
             "regla",
@@ -54,7 +54,7 @@ export const constResponses = {
         ]
     },
 
-    'un tenedor o tenedores (usados para comer)':{
+    FORK: {
         'high':[
             "Si pones una banda elástica alrededor de los dientes de un tenedor se convierte en un mini trampolín para hormigas u otros insectos pequeños",
             "Mantener tu bebida fría congelando algunos tenedores y agregándolos al vaso",
@@ -108,7 +108,7 @@ export const constResponses = {
         ]
     },
 
-    'una lata o latas de metal (usadas para almacenar alimentos perecederos)':{
+    CAN: {
         'high':[
             "Usar la pestaña de una lata para hacer ropa",
             "imprenta",
