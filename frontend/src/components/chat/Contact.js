@@ -59,7 +59,7 @@ export default function Contact({ chatRoom, currentUser }) {
   return (
     <UserLayout
       user={contact}
-      label="Partner"
+      label="Compañero"
       showEmail={false}
     />
   );
