@@ -1,4 +1,7 @@
 import { format } from "timeago.js";
+import es from "timeago.js/lib/lang/es";
+
+register("es", es);
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -25,7 +28,7 @@ export default function Message({ message, self }) {
             <span className="block font-normal ">{message.message}</span>
           </div>
           <span className="block text-sm text-gray-700 dark:text-gray-400">
-            {format(message.createdAt)}
+            {format(message.createdAt, "es")}
           </span>
         </div>
       </li>
