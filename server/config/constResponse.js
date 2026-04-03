@@ -1,5 +1,5 @@
 export const constResponses = {
-    'un libro o libros (usados para leer)': {
+    'un libro o libros (utilizados para leer)': {
         'high':[
             "construir una casa para niños",
             "regla",
