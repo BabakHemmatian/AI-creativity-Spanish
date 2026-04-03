@@ -30,7 +30,7 @@ export default function UserLayout({
     ? forceAvatarUrl
     : normalizeDicebearUrl(user?.photoURL);
 
-  const title = label || user?.displayName || user?.email || "Partner";
+  const title = label || user?.displayName || user?.email || "Compañero";
 
   return (
     <div className="flex items-center gap-3">
