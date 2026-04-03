@@ -14,7 +14,7 @@ export default function SearchUsers({ handleSearch }) {
           id="search"
           name="search"
           className="block py-2 pl-10 pr-3 w-full bg-gray-50 text-gray-900 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-sky-500 focus:border-sky-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-sky-500 dark:focus:border-sky-500"
-          placeholder="Search"
+          placeholder="Buscar"
           type="search"
           onChange={(e) => handleSearch(e.target.value)}
         />
