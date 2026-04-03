@@ -243,13 +243,13 @@ export default function ChatRoom({
           {currentChat.chatType === "CON" ? (
             // CON: always text-only
             <div className="text-gray-800 dark:text-white font-semibold">
-              Non-Interactive Agent
+              Agente no interactivo
             </div>
           ) : currentChat.chatType === "HUM" &&
             currentChat.members.length === 1 ? (
             // HUM but not yet paired
             <div className="text-gray-800 dark:text-white font-semibold">
-              Interactive Human Partner
+              Compañero humano interactivo
             </div>
           ) : (
             // HUM OR GPT: show avatar + label via Contact
