@@ -38,7 +38,7 @@ export default function Login() {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-4 text-3xl text-center tracking-tight font-light dark:text-white">
-            Login to your account
+            Inicia sesión en tu cuenta
           </h2>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleFormSubmit}>
