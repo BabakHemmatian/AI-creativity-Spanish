@@ -13,6 +13,9 @@ import {
   parseEndInstruction,
 } from "../../utils/parseInstruction"
 
+const START_KEYWORD = "listo";
+const START_KEYWORDS = new Set(["listo", "ready"]); // backward compatibility
+
 export default function ChatRoom({
   currentChat,
   currentUser,
@@ -100,7 +103,7 @@ export default function ChatRoom({
       setReady((prev) => prev | (data.senderId === currentUser.uid ? 2 : 1))
       setIncomingMessage({
         senderId: data.senderId,
-        message: "ready",
+        message: START_KEYWORD,
         roomId: currentId.current,
       })
     })
@@ -157,7 +160,7 @@ export default function ChatRoom({
       const lastMsg = messages[messages.length - 1]
       if (
         lastMsg.senderId === "GPT" &&
-        lastMsg.message.trim().toLowerCase() === "ready"
+        lastMsg.message.trim().toLowerCase() === START_KEYWORD
       ) {
         setIsProcessing(false)
       }
@@ -170,14 +173,14 @@ export default function ChatRoom({
     if (currentChat.chatType === "GPT" && isProcessing) return
     if (currentChat.chatType === "GPT") setIsProcessing(true)
 
-    if (message === "ready" && ready !== 3) {
+    if (START_KEYWORDS.has(normalizedMessage) && ready !== 3) {
       setReady((prev) => prev | 2)
       setMessages([
         ...messages,
         {
           roomId: currentId.current,
           sender: currentUser.uid,
-          message: "ready",
+          message: START_KEYWORD,
         },
       ])
       socket.current.emit("ready", {
@@ -210,7 +213,7 @@ export default function ChatRoom({
         }, 500)
       }
     } else if (ready !== 3) {
-      alert("please first type ready!")
+      alert("¡Primero escribe 'listo'!")
     } else if (currentChat.isEnd) {
       alert("La sala de chat actual se ha cerrado, pero puedes buscar una nueva.")
     } else {
@@ -290,12 +293,12 @@ export default function ChatRoom({
 
         <div className="p-3 bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
           <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
-            Scratchpad (private, not sent to chat)
+            Bloc de notas (privado, no se envía al chat)
           </label>
           <textarea
             value={scratchpad}
             onChange={(e) => setScratchpad(e.target.value)}
-            placeholder="You can organize ideas here..."
+            placeholder="Puedes organizar tus ideas aquí..."
             className="w-full p-1 text-sm rounded-md dark:bg-gray-800 dark:text-gray-300"
             rows={4}
           />
