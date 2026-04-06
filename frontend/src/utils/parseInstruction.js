@@ -40,8 +40,7 @@ export const parseInstruction = (index, chatType) => {
   const gpt = (
     <p>
       Tu compañero en esta ronda es una{" "}
-      <strong>IA interactiva</strong>. Espera su primera respuesta y luego
-      interactúa con ella como prefieras. 
+      <strong>IA interactiva</strong>. Envía 'ready' en el chat, espera su primera respuesta y, luego, interactúa con ella como prefieras. 
     </p>
   );
 
