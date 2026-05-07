@@ -64,7 +64,7 @@ export function AuthProvider({ children }) {
 
   async function updateUserProfile(user, profile) {
     const targetUser = auth.currentUser || user;
-    if (!targetUser) throw new Error("No authenticated user");
+    if (!targetUser) throw new Error("No hay un usuario autenticado");
 
     await updateProfile(targetUser, profile);
 

@@ -27,7 +27,30 @@ export default function Login() {
       await login(email, password);
       navigate("/");
     } catch (e) {
-      setError("Failed to login");
+      console.log(e);
+      switch (e?.code) {
+        case "auth/user-not-found":
+          setError("No existe una cuenta con ese correo. Regístrate primero.");
+          break;
+        case "auth/wrong-password":
+        case "auth/invalid-credential":
+          setError("Correo o contraseña incorrectos.");
+          break;
+        case "auth/invalid-email":
+          setError("El formato del correo electrónico no es válido.");
+          break;
+        case "auth/too-many-requests":
+          setError("Demasiados intentos fallidos. Intenta de nuevo en unos minutos.");
+          break;
+        case "auth/user-disabled":
+          setError("Esta cuenta ha sido deshabilitada.");
+          break;
+        case "auth/network-request-failed":
+          setError("No se pudo conectar con el servidor de autenticación. Revisa tu conexión.");
+          break;
+        default:
+          setError(e?.message || "No se pudo iniciar sesión");
+      }
     }
 
     setLoading(false);
@@ -38,7 +61,7 @@ export default function Login() {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-4 text-3xl text-center tracking-tight font-light dark:text-white">
-            Login to your account
+            Inicia sesión en tu cuenta
           </h2>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleFormSubmit}>
@@ -51,7 +74,7 @@ export default function Login() {
                 autoComplete="email"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 placeholder-gray-500 rounded-t-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="Email address"
+                placeholder="Correo electrónico"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
@@ -63,7 +86,7 @@ export default function Login() {
                 autoComplete="current-password"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 placeholder-gray-500 rounded-t-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
+                placeholder="Contraseña"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
@@ -74,7 +97,7 @@ export default function Login() {
               disabled={loading}
               className=" w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-800 hover:bg-sky-900"
             >
-              Login
+              Iniciar sesión
             </button>
           </div>
           <div className="flex items-center justify-between">
@@ -83,7 +106,7 @@ export default function Login() {
                 to="/register"
                 className="text-blue-600 hover:underline dark:text-blue-500"
               >
-                Don't have an account? Register
+                ¿No tienes una cuenta? Regístrate
               </Link>
             </div>
           </div>

@@ -35,13 +35,13 @@ const headers = {
 }
 
 const DEFAULT_INSTRUCTIONS = `
-You will work with the user to come up with as many original and practically helpful alternate uses for an everyday object as you can in 4 minutes. Assume you are playing this game for the first time. You will be evaluated as a team. You will start the conversation. Remain focused on the task and contribute while keeping interacting with the user as appropriate. Generate no more than one idea at a time. Keep your answers succinct and do not add uninformative phrases like "here is a creative use fo X". Feel free to build off of the user's ideas, but make sure that anything you come up with is different from their ideas or anything that has already been shared.
+Trabajarás con el usuario para proponer la mayor cantidad de usos alternativos originales y prácticamente útiles para un objeto cotidiano en 4 minutos. Imagina que es la primera vez que juegas a esto. Serán evaluados como equipo. Tú iniciarás la conversación. Mantente enfocado en la tarea, contribuye y sigue interactuando con el usuario según sea apropiado. Genera no más de una idea por mensaje. Mantén tus respuestas concisas y no agregues frases poco informativas como "aquí hay un uso creativo para X". Siéntete libre de construir sobre las ideas del usuario, pero asegúrate de que cualquier propuesta tuya sea distinta de las ideas que el usuario ya compartió o de cualquier idea que ya se haya mencionado. Toda la conversación debe ser en español.
 `.trim()
 
 const INSTRUCTIONS = (process.env.AI_INS || DEFAULT_INSTRUCTIONS).trim()
 
 const seedUser = (item) =>
-  `The object you will be coming up with creative uses for is : ${item}`
+  `El objeto para el que pensarás usos creativos es: ${item}`
 
 const toInputBlocks = (raw) => {
   const blocks = []
@@ -67,7 +67,7 @@ const toInputBlocks = (raw) => {
 
   const first = blocks[0]
   if (!first || first.role !== "user") {
-    const item = process.env.ITEM || raw?.[0]?.text || "the object"
+    const item = process.env.ITEM || raw?.[0]?.text || "el objeto"
     blocks.unshift({
       role: "user",
       content: [{ type: "input_text", text: seedUser(item) }],

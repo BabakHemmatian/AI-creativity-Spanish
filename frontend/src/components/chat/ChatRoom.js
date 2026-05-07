@@ -115,7 +115,7 @@ export default function ChatRoom({
       setIncomingMessage({
         senderId: data.senderId,
         sender: data.senderId,
-        message: "ready",
+        message: "listo",
         roomId: currentId.current,
       })
     })
@@ -141,7 +141,7 @@ export default function ChatRoom({
 
     sock.on("refresh", () => {
       alert(
-        "The co-player's connection to the server was severed. Please refresh this page to start this session again. We apologize for the inconvenience.",
+        "La conexión de tu compañero/a con el servidor se interrumpió. Por favor, actualiza esta página para iniciar la sesión de nuevo. Disculpa las molestias.",
       )
     })
 
@@ -167,7 +167,7 @@ export default function ChatRoom({
 
       if (
         lastMsg.senderId === "GPT" &&
-        lastMsg.message.trim().toLowerCase() === "ready"
+        lastMsg.message.trim().toLowerCase() === "listo"
       ) {
         setIsProcessing(false)
       }
@@ -180,11 +180,11 @@ export default function ChatRoom({
     if (currentChat.chatType === "GPT" && isProcessing) return
     if (currentChat.chatType === "GPT") setIsProcessing(true)
 
-    // Accept "ready" case-insensitively and tolerate leading/trailing whitespace
-    // so variants like "Ready", "READY", " ready\n" all trigger the round start.
+    // Accept "listo" case-insensitively and tolerate leading/trailing whitespace
+    // so variants like "Listo", "LISTO", " listo\n" all trigger the round start.
     const normalizedMessage =
       typeof message === "string" ? message.trim().toLowerCase() : ""
-    const isReadyMessage = normalizedMessage === "ready"
+    const isReadyMessage = normalizedMessage === "listo"
 
     if (isReadyMessage && ready !== 3) {
       setReady((prev) => prev | 2)
@@ -193,7 +193,7 @@ export default function ChatRoom({
         {
           roomId: currentId.current,
           sender: currentUser.uid,
-          message: "ready",
+          message: "listo",
         },
       ])
 
@@ -204,12 +204,12 @@ export default function ChatRoom({
 
       // CON/GPT/HUM: server emits roundStarted after ready (single countdown source)
     } else if (ready !== 3) {
-      alert("please first type ready!")
+      alert("¡por favor, escribe primero \"listo\"!")
     } else if (
       currentSession?.phase === "round_ended" ||
       currentSession?.phase === "completed"
     ) {
-      alert("current chat room has ended, but you can match a new one")
+      alert("la sala de chat actual ha terminado, pero puedes emparejarte con una nueva")
     } else {
       const receiverId = currentChat.members.find(
         (member) => member !== currentUser.uid,
@@ -240,13 +240,13 @@ export default function ChatRoom({
           {currentChat.chatType === "CON" ? (
             // CON: always text-only
             <div className="text-gray-800 dark:text-white font-semibold">
-              Non-Interactive Agent
+              Agente No Interactivo
             </div>
           ) : currentChat.chatType === "HUM" &&
             currentChat.members.length === 1 ? (
             // HUM but not yet paired
             <div className="text-gray-800 dark:text-white font-semibold">
-              Interactive Human Partner
+              Compañero Humano Interactivo
             </div>
           ) : (
             // HUM OR GPT: show avatar + label via Contact
@@ -267,7 +267,7 @@ export default function ChatRoom({
             <li className="dark:text-white" style={{ fontWeight: "bold" }}>
               <div>
                 {ready === 3 &&
-                  `The object you will be coming up with creative uses for is: ${currentChat.instruction}`}
+                  `El objeto para el que pensarán usos creativos es: ${currentChat.instruction}`}
               </div>
             </li>
 
@@ -284,7 +284,7 @@ export default function ChatRoom({
               ))}
 
             <li className="dark:text-white" style={{ fontWeight: "bold" }}>
-              {`This chat room will end in ${countdown} seconds`}
+              {`Esta sala de chat terminará en ${countdown} segundos`}
             </li>
 
             <li className="dark:text-white" style={{ fontWeight: "bold" }}>
@@ -295,12 +295,12 @@ export default function ChatRoom({
 
         <div className="p-3 bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
           <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
-            Scratchpad (private, not sent to chat)
+            Bloc de notas (privado, no se envía al chat)
           </label>
           <textarea
             value={scratchpad}
             onChange={(e) => setScratchpad(e.target.value)}
-            placeholder="You can organize ideas here..."
+            placeholder="Aquí puedes organizar tus ideas..."
             className="w-full p-1 text-sm rounded-md dark:bg-gray-800 dark:text-gray-300"
             rows={4}
           />

@@ -13,12 +13,12 @@ export default function SurveyReminderPopup({ open, onClose, isCompleted }) {
   const closeButtonRef = useRef(null)
 
   const title = isCompleted
-    ? "Study complete — return to the survey"
-    : "Round complete — return to the survey"
+    ? "Estudio completado — vuelve a la encuesta"
+    : "Ronda completada — vuelve a la encuesta"
 
   const body = isCompleted
-    ? "You have finished all chat rounds. Please return to the Qualtrics survey tab to complete the remaining questions."
-    : "This chat round has ended. Please go back to the Qualtrics survey tab, answer the next set of questions, and then return here to continue with the next round."
+    ? "Has terminado todas las rondas de chat. Por favor, regresa a la pestaña de la encuesta de Qualtrics para completar las preguntas restantes."
+    : "Esta ronda de chat ha terminado. Por favor, regresa a la pestaña de la encuesta de Qualtrics, responde el siguiente bloque de preguntas y luego vuelve aquí para continuar con la próxima ronda."
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -87,7 +87,7 @@ export default function SurveyReminderPopup({ open, onClose, isCompleted }) {
                   onClick={onClose}
                   ref={closeButtonRef}
                 >
-                  Got it
+                  Entendido
                 </button>
               </div>
             </div>

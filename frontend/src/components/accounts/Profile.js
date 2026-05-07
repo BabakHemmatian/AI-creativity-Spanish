@@ -31,7 +31,7 @@ export default function Profile() {
     e.preventDefault();
 
     if (selectedAvatar === undefined) {
-      return setError("Please select an avatar");
+      return setError("Por favor selecciona un avatar");
     }
 
     try {
@@ -45,7 +45,7 @@ export default function Profile() {
       await updateUserProfile(user, profile);
       navigate("/");
     } catch (e) {
-      setError("Failed to update profile");
+      setError("No se pudo actualizar el perfil");
     }
 
     setLoading(false);
@@ -56,7 +56,7 @@ export default function Profile() {
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <h2 className="mt-4 text-3xl text-center tracking-tight font-light dark:text-white">
-            Pick an avatar
+            Elige un avatar
           </h2>
         </div>
         <form className="space-y-6" onSubmit={handleFormSubmit}>
@@ -88,7 +88,7 @@ export default function Profile() {
               autoComplete="username"
               required
               className="appearance-none rounded-none relative block w-full px-3 py-2 placeholder-gray-500 rounded-t-md bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 focus:z-10 sm:text-sm"
-              placeholder="Enter a Display Name"
+              placeholder="Escribe un nombre para mostrar"
               defaultValue={currentUser.displayName && currentUser.displayName}
               onChange={(e) => setUsername(e.target.value)}
             />
@@ -99,7 +99,7 @@ export default function Profile() {
               disabled={loading}
               className="w-full py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
-              Update Profile
+              Actualizar perfil
             </button>
           </div>
         </form>

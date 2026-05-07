@@ -38,7 +38,7 @@ export default function Contact({ chatRoom, currentUser }) {
     return (
       <UserLayout
         user={contact}
-        label="Interactive AI Partner"
+        label="Compañero IA Interactivo"
         forceAvatarUrl={aiPartnerAvatarUrl()}
         showEmail={false}
       />
@@ -49,7 +49,7 @@ export default function Contact({ chatRoom, currentUser }) {
     return (
       <UserLayout
         user={contact}
-        label="Interactive Human Partner"
+        label="Compañero Humano Interactivo"
         showEmail={false}
       />
     );
@@ -59,7 +59,7 @@ export default function Contact({ chatRoom, currentUser }) {
   return (
     <UserLayout
       user={contact}
-      label="Partner"
+      label="Compañero/a"
       showEmail={false}
     />
   );

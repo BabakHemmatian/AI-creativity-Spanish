@@ -125,7 +125,7 @@ export default function AllUsers({
               onClick={handleMatchNewUser}
               disabled={matching}
             >
-              {matching ? "Matching..." : "Match"}
+              {matching ? "Emparejando..." : "Emparejar"}
             </button>
           )}
         </li>
@@ -134,8 +134,8 @@ export default function AllUsers({
             <div className="dark:text-white flex items-center px-3 py-2 text-sm gap-2">
               <span className="spinner"></span>
               {currentSession?.types?.[currentSession.currentI] === "HUM"
-                ? "Waiting for partner to join..."
-                : "Loading round..."}
+                ? "Esperando a que se una el compañero/a..."
+                : "Cargando ronda..."}
             </div>
           )}
         </li>
@@ -154,13 +154,13 @@ export default function AllUsers({
                   "HUM" ? (
                     <>
                       <span className="spinner"></span>
-                      Waiting for partner to join...
+                      Esperando a que se una el compañero/a...
                     </>
                   ) : (
                     <span className="spinner"></span>
                   )
                 ) : (
-                  "Start"
+                  "Comenzar"
                 )}
               </button>
             )}

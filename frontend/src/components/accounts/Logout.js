@@ -18,7 +18,7 @@ export default function Logout({ modal, setModal }) {
       setModal(false);
       navigate("/login");
     } catch {
-      setError("Failed to logout");
+      setError("No se pudo cerrar sesión");
     }
   }
 
@@ -73,11 +73,11 @@ export default function Logout({ modal, setModal }) {
                       as="h3"
                       className="text-lg leading-6 font-medium text-gray-500 dark:text-gray-400"
                     >
-                      Logging out
+                      Cerrar sesión
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500 dark:text-gray-400">
-                        Are you sure you want to log out ?
+                        ¿Seguro que quieres cerrar sesión?
                       </p>
                     </div>
                   </div>
@@ -89,7 +89,7 @@ export default function Logout({ modal, setModal }) {
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
                   onClick={handleLogout}
                 >
-                  Logout
+                  Cerrar sesión
                 </button>
                 <button
                   type="button"
@@ -99,7 +99,7 @@ export default function Logout({ modal, setModal }) {
                   onClick={() => setModal(false)}
                   ref={cancelButtonRef}
                 >
-                  Cancel
+                  Cancelar
                 </button>
               </div>
             </div>

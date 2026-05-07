@@ -151,7 +151,7 @@ export default function ChatLayout() {
           {load && (
             <div id="load-mask">
               <span id="load-alert" className="dark:text-white">
-                loading user information...
+                cargando información del usuario...
               </span>
             </div>
           )}

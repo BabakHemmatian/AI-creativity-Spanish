@@ -71,7 +71,7 @@ export function startChatLoop(socket, userId, curType, curId) {
         print_log(`chatLoop: AI reply failed for ${userId}`, -1)
         print_log(err)
         socket.emit("aiError", {
-          message: "AI response failed. Retrying shortly.",
+          message: "Falló la respuesta de la IA. Reintentando en breve.",
         })
       }
       scheduleLoop(chatLoop, jitterMs(waitTime, waitTimeDiff, multiplier))

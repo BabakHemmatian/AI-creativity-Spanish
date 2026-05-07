@@ -168,7 +168,7 @@ async function _handleStartRound(socket, userId) {
         `[StartRound] WARNING: Missing replies for ${curItem} (${quality}). Using fallback`,
         2,
       )
-      session.conMes = ["Sorry, I don't have a reply."]
+      session.conMes = ["Lo siento, no tengo una respuesta."]
     } else {
       session.conMes = [...allRes].sort(() => Math.random() - 0.5)
     }
